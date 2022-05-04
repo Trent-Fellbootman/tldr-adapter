@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+test -n "$TLDR_HOME"
+
+if [[ $? -ne 0 ]]; then
+  echo "ERROR: Please initialize tldr by \`source .../initialize.sh\`" 1>&2
+  exit 1
+fi
+
+if [[ $1 = '' ]]; then
+  echo "ERROR: You must provide a command name to search"
+  exit 1
+fi
+
+files=$(find $TLDR_HOME -name $1.md)
+test -n "$files"
+
+if [[ $? -ne 0 ]]; then
+  echo "ERROR: Command not found: $1" 1>&2
+  exit 1
+else
+  let cnt=$(echo $files | wc -w)
+  if [[ cnt -gt 1 ]]; then
+    echo "$cnt entries were found:";
+    echo $files | xargs -n 1 echo | awk -F '/' '{ print $NF }' | awk -F '.' '{ print $1 }'
+  else
+    /usr/bin/env glow $files
+  fi
+fi

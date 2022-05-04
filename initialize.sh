@@ -1,1 +1,1 @@
-export TLDR_HOME=/home/trent/tldr/pages
+export TLDR_HOME=/Users/koala/tldr/pages

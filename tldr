@@ -18,7 +18,7 @@ if [[ $? -ne 0 ]]; then
   echo "ERROR: Command not found: $1" 1>&2
   exit 1
 else
-  let cnt=$(echo $files | wc -w)
+  cnt=$(echo $files | wc -w)
   if [[ cnt -gt 1 ]]; then
     echo "$cnt entries were found:";
     echo $files | xargs -n 1 echo | awk -F '/' '{ print $NF }' | awk -F '.' '{ print $1 }'
